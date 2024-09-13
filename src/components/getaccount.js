@@ -60,7 +60,7 @@ export default {
         }
     },
     mounted() {
-        this.userNo = 4;
+        this.userNo = 0;
         this.newAccounts = this.userNo;
         userWallet = Object.assign({}, wallet[this.userNo]);
 

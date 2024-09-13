@@ -31,7 +31,7 @@ var template = `<div>
                     
     </div>
     <div style="position: relative">
-        <div style="margin-top: 16px; ;width: 100%;height:300px;padding:10px;z-index:1000;background:white" class="searchtoken" v-show="isShowsearch" >
+        <div style="" class="searchtoken" v-show="isShowsearch" >
             <input type="text" placeholder="输入tokenA 地址" scale="md" v-model="inputToken" @keyup="handleKeyUp" @blur="inputBlur" ref="searchtokenInput" class=" kTbsxI  searchtokenInput" style="width: 100%;padding-left: 20px"  />
             <div style="margin-top:10px">
             tokenB
