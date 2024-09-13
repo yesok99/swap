@@ -28,17 +28,21 @@ var symboltokenB = 'USDT';
 var TokenBalances = [];
 
 var tokenList = {};
+tokenList['USDT'] = usdt;
+tokenList['WBNB'] = wbnb;
+tokenList['SCT'] = sct;
+tokenList['WEB'] = web;
 
 try{
     let gettokenList = localStorage.getItem('tokenList')
-    tokenList = JSON.parse(gettokenList);
+    let _tokenList = JSON.parse(gettokenList);
+    if(_tokenList != null)
+        tokenList = _tokenList;
+    else
+        localStorage.setItem('tokenList',JSON.stringify(tokenList));
 
 } catch(e) {
 
-    tokenList['USDT'] = usdt;
-    tokenList['WBNB'] = wbnb;
-    tokenList['SCT'] = sct;
-    tokenList['WEB'] = web;
     localStorage.setItem('tokenList',JSON.stringify(tokenList));
 }
 

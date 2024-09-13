@@ -163,6 +163,7 @@ export default {
                     }
                     
                     this.tokenList[r.symbol] = token;
+                    localStorage.setItem('tokenList',JSON.stringify(tokenList));
                     this.getpair(tokenA, tokenB);
 
                 }
