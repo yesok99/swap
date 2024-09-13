@@ -31,15 +31,27 @@ var template = `<div>
                     
     </div>
     <div style="position: relative">
-        <div style="" class="searchtoken" v-show="isShowsearch" >
-            <input type="text" placeholder="输入tokenA 地址" scale="md" v-model="inputToken" @keyup="handleKeyUp" @blur="inputBlur" ref="searchtokenInput" class=" kTbsxI  searchtokenInput" style="width: 100%;padding-left: 20px"  />
-            <div style="margin-top:10px">
-            tokenB
+
+        
+        <div style="padding-top:15px" class="searchtoken" v-show="isShowsearch" >
+        
+            <div style="padding:0 0 15px 0;letter-spacing: 0.05em;">
+                <h1 >选择代币</h1>
+            </div>
+            <input type="text" :placeholder="getPlaceholder()" scale="md" v-model="inputToken" @keyup="handleKeyUp" @blur="inputBlur" ref="searchtokenInput" class=" kTbsxI  searchtokenInput" style="width: 100%;padding-left: 20px"  />
+            <div  class="tokenlist">
+
+                <ul>
+                <li v-for="(value, key) in tokenList" :key="key" @click = "setToken(key)">
+                    {{ key }}
+                </li>
+                </ul>
+
             </div>
         </div>                
-        <div class="pool div1" @click = "Showsearch" > 
-            <div  class="reverse">{{tokenA.symbol}}: {{tokenA.amount}}</div>
-            <div  class="reverse">{{tokenB.symbol}}: {{tokenB.amount}}</div>
+        <div class="pool div1" > 
+            <div  class="reverse" @click = "Showsearch(1)">{{tokenA.symbol}}: {{tokenA.amount}}  </div>
+            <div  class="reverse" @click = "Showsearch(0)">{{tokenB.symbol}}: {{tokenB.amount}}  </div>
         </div>
 
         
@@ -60,16 +72,20 @@ export default {
             tokenA:{'symbol':'','amount':0},
             tokenB:{'symbol':'','amount':0},
             isShowsearch:false,
-            isShowsearch:false,
             inputToken:'',
             period:1000*2,
-            busdata:0
+            busdata:0,
+            istokenA:1,
+            tokenList:0,
                 
         }
     },
     mounted() {
 
         // this.loop();
+        this.tokenList = tokenList;
+        
+        console.log(this.tokenList);
 
       },
     methods:{
@@ -77,6 +93,9 @@ export default {
             //总线事件
             EventBus.$emit('Setting', this.busdata);
 
+        },
+        getPlaceholder() {
+            return this.istokenA === 1 ? "输入tokenA 地址" : "输入tokenB 地址";
         },
 
         isAutoloop(){
@@ -86,7 +105,14 @@ export default {
 
         },
 
-        Showsearch(){
+        Showsearch(tokenFlag){
+            if(tokenFlag == 1)
+                this.istokenA = 1;
+            else
+                this.istokenA = 0;
+
+            this.inputToken = '';
+
             this.isShowsearch = true;
             this.$nextTick(() => {
                 this.$refs.searchtokenInput.focus();
@@ -94,6 +120,15 @@ export default {
         },
 
         inputBlur(){
+            // this.isShowsearch = false;
+        },
+        setToken(key){
+
+            if(this.istokenA == 1) {
+                tokenA = this.tokenList[key];
+            } else { 
+                tokenB = this.tokenList[key];
+            }
             this.isShowsearch = false;
         },
 
@@ -117,11 +152,26 @@ export default {
                 //     this.isShowsearch = false;
                 //     return;
                 // }
-                    
-                let ret = await this.getpair(token, tokenB);
+                //检查是否为合约
+                let r = await getToken(token) ;
+                if(r) {
 
-                if(ret)
-                    tokenA = token;
+                    if(this.istokenA == 1) {
+                        tokenA = token;
+                    } else { 
+                        tokenB = token;
+                    }
+                    
+                    this.tokenList[r.symbol] = token;
+                    this.getpair(tokenA, tokenB);
+
+                }
+                
+
+                // let ret = await this.getpair(token, tokenB);
+
+                // if(ret)
+                //     tokenA = token;
 
 			}
 
@@ -191,5 +241,9 @@ export default {
             }
         }
     },    
+
+
+    
+    
    
 }

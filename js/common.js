@@ -27,6 +27,22 @@ var symboltokenA = 'WBNB';
 var symboltokenB = 'USDT';
 var TokenBalances = [];
 
+var tokenList = {};
+
+try{
+    let gettokenList = localStorage.getItem('tokenList')
+    tokenList = JSON.parse(gettokenList);
+
+} catch(e) {
+
+    tokenList['USDT'] = usdt;
+    tokenList['WBNB'] = wbnb;
+    tokenList['SCT'] = sct;
+    tokenList['WEB'] = web;
+    localStorage.setItem('tokenList',JSON.stringify(tokenList));
+}
+
+
 //设置循环
 var isLoop = true;
 
