@@ -36,7 +36,9 @@ var template = `<div>
         <div style="padding-top:15px" class="searchtoken" v-show="isShowsearch" >
         
             <div style="padding:0 0 15px 0;letter-spacing: 0.05em;">
-                <h1 >选择代币</h1>
+                <h1 @click="toggleToken" :style="{ color: buttonColor }">
+                {{ buttonText }}
+                </h1>
             </div>
             <input type="text" :placeholder="getPlaceholder()" scale="md" v-model="inputToken" @keyup="handleKeyUp" @blur="inputBlur" ref="searchtokenInput" class=" kTbsxI  searchtokenInput" style="width: 100%;padding-left: 20px"  />
             <div  class="tokenlist">
@@ -77,6 +79,8 @@ export default {
             busdata:0,
             istokenA:1,
             tokenList:0,
+            isSelecting: true,
+            buttonColor: 'green',
                 
         }
     },
@@ -85,10 +89,15 @@ export default {
         // this.loop();
         this.tokenList = tokenList;
         
-        console.log(this.tokenList);
-
+      },
+      computed: {
+        buttonText() {
+          return this.isSelecting ? '选择代币' : '删除代币';
+        },
       },
     methods:{
+
+
         setup(){
             //总线事件
             EventBus.$emit('Setting', this.busdata);
@@ -123,6 +132,13 @@ export default {
             // this.isShowsearch = false;
         },
         setToken(key){
+
+            if(!this.isSelecting && key != 'USDT' && key != 'WBNB') {
+
+                delete this.tokenList[key];
+                localStorage.setItem('tokenList',JSON.stringify(tokenList));
+                return;
+            }
 
             if(this.istokenA == 1) {
                 tokenA = this.tokenList[key];
@@ -240,7 +256,13 @@ export default {
                 // return [false, '获取pair失败'];
                 return false;
             }
-        }
+        },
+
+        toggleToken() {
+            this.isSelecting = !this.isSelecting;
+            this.buttonColor = this.isSelecting ? 'green' : 'red';
+          },
+        
     },    
 
 
