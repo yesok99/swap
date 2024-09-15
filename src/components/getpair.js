@@ -13,7 +13,7 @@ var template = `<div>
     </div>
 
     <div class="gGRQZP headinfo">
-        <div id="OVGpirce">价格：\${{price}}</div> 
+        <div id="OVGpirce" @click = "playAudio">价格：\${{price}}</div> 
         <div id="coinAmount"></div>
         <div id="blocknumber">区块: {{blocknumber}}</div>
         <div  @click = "setup">
@@ -81,6 +81,8 @@ export default {
             tokenList:0,
             isSelecting: true,
             buttonColor: 'green',
+            amountAlarm:160*1e4 * 1e18,
+            isAlarm:true,
                 
         }
     },
@@ -247,6 +249,22 @@ export default {
                         this.tokenA.amount = BigNumber(pair[0]).div(BigNumber(10).pow(tokens[_tokenA].decimals)).toFormat(0);
                         this.tokenB.amount = BigNumber(pair[1]).div(BigNumber(10).pow(tokens[_tokenB].decimals)).toFormat(0);
                         document.title = '$' + this.price.toString();
+//底池报警处理            
+                        let isAlarm = BigNumber(pair[1]).lt(amountAlarm) || pair[2] > tokenPrice[1] || pair[2] < tokenPrice[0];
+                        if( isAlarm){
+
+                            if(isMusicLoad) {
+                                this.playAudio();
+                                isMusicLoad = false;
+
+                            }
+                            
+                        } else {
+                            isMusicLoad = true;
+                            this.playStop();
+                        }
+                            
+
                     };
                     return {'blocknumber': r.blockNumber, 'reverse': [pair[0],pair[1]], price: pair[2], 'token':[symboltokenA, symboltokenB]};
                 }
@@ -262,6 +280,14 @@ export default {
             this.isSelecting = !this.isSelecting;
             this.buttonColor = this.isSelecting ? 'green' : 'red';
           },
+
+        playAudio(){
+            EventBus.$emit('playAudio', 43);
+        },
+        playStop(){
+            EventBus.$emit('pauseAudio', '');
+        },
+
         
     },    
 

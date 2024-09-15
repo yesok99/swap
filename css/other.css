@@ -225,3 +225,12 @@
     background-color: #d3dbb7;
 
 }
+
+.music button {
+
+    border: #d3dbb7 1px solid;
+    border-radius: 20%;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-right: 10px;
+}

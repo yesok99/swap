@@ -7,6 +7,7 @@ var vm = new Vue({
         App,
 
     },
+    
     data(){return{
         parentMessage:'Hello',
     }},

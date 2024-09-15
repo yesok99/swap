@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日9点播放音乐</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        button {
+            font-size: 24px;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="myAudio" src="chuaiji.mp3"></audio>
+    <button id="playButton" onclick="playMusic()">播放音乐</button>
+    <script>
+        function playMusic() {
+            var audio = document.getElementById("myAudio");
+            audio.play();
+        }
+
+        function scheduleMusic() {
+            var now = new Date();
+            var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
+            if (now > targetTime) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+            var delay = targetTime - now;
+            setTimeout(playMusic, delay);
+        }
+
+        window.onload = scheduleMusic;
+
+        // 获取textarea元素
+var textarea = document.getElementById("textarea-id");
+
+// 获取textarea的内容并按换行符分割成数组
+var lines = textarea.value.split('');
+
+// 遍历数组并打印每一行
+for (var i = 0; i < lines.length; i++) {
+  console.log("Line " + (i + 1) + ": " + lines[i]);
+}
+
+    </script>
+    <textarea id="textarea-id"></textarea>
+</body>
+</html>
+
+    

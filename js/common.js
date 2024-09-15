@@ -27,6 +27,11 @@ var symboltokenA = 'WBNB';
 var symboltokenB = 'USDT';
 var TokenBalances = [];
 
+// 音乐报警
+var isMusicLoad = true;
+var amountAlarm = 145*1e4 * 1e18;
+var tokenPrice = [0,1e30];
+
 var tokenList = {};
 tokenList['USDT'] = usdt;
 tokenList['WBNB'] = wbnb;

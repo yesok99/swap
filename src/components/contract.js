@@ -8,6 +8,7 @@ key 干预diff算法，在同一层级，key值相同的节点会比对，不同
 import Trade from "./trade.js";
 import Getpair from "./getpair.js";
 import Getaccount from "./getaccount.js";
+import Music from "./music.js";
 
 // import Products from "./products.js";
 
@@ -20,6 +21,7 @@ var template = `
         <Getpair ref='getpair' />   
         <Getaccount ref='account' /> 
         <Trade  :message='userBalances' ref='trade'/>
+        <Music  ref='music'/>
     </div>
     
 </div>` ;
@@ -32,6 +34,7 @@ export default {
         Getpair,
         Getaccount,
         Trade,
+        Music,
         // Products
     },
     template,
@@ -65,6 +68,7 @@ export default {
     },
     mounted() {
         this.loop();
+
 
       },
 

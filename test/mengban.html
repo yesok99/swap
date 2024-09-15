@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layui Mask Example</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/layui/2.5.7/css/layui.css">
+    <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/layui/2.5.7/layui.js"></script>
+</head>
+<body>
+    <button id="showMask">显示蒙版</button>
+
+    <script>
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            $('#showMask').on('click', function(){
+                // 显示一个半透明的蒙版层
+                layer.load(1, {
+                    shade: [0.5, '#000'] // 设置透明度和颜色
+                });
+            });
+        });
+    </script>
+</body>
+</html>

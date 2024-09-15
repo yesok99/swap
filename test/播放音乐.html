@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3播放器</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        button {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        #progress-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        #progress-bar {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <audio id="myAudio" src="your-music-file.mp3"></audio>
+    <button id="playButton" onclick="playMusic()">播放</button>
+    <button id="pauseButton" onclick="pauseMusic()">暂停</button>
+    <button id="stopButton" onclick="stopMusic()">停止</button>
+    <button id="loopButton" onclick="toggleLoop()">循环</button>
+    <button id="autoplayButton" onclick="toggleAutoplay()">自动播放</button>
+    <div id="progress-container">
+        <input type="range" id="progress-bar" min="0" max="100" value="0" step="1" oninput="changeAudioPosition(this.value)">
+    </div>
+    <script>
+        var audio = document.getElementById("myAudio");
+        var playButton = document.getElementById("playButton");
+        var pauseButton = document.getElementById("pauseButton");
+        var stopButton = document.getElementById("stopButton");
+        var loopButton = document.getElementById("loopButton");
+        var autoplayButton = document.getElementById("autoplayButton");
+        var progressBar = document.getElementById("progress-bar");
+
+        audio.loop = true;
+        // audio.autoplay = true;
+        var audio = document.getElementById("myAudio");
+        audio.currentTime = 43; // 设置开始时间为43秒
+        audio.play(); // 开始播放
+
+        audio.addEventListener("timeupdate", function() {
+            if (audio.currentTime >= 178) {
+                audio.currentTime = 43; // 当播放到87秒时，重置为43秒重新开始循环播放
+            }
+        });
+        
+        function playMusic() {
+            audio.play();
+        }
+
+        function pauseMusic() {
+            audio.pause();
+        }
+
+        function stopMusic() {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        function toggleLoop() {
+            if (audio.loop) {
+                audio.loop = false;
+                loopButton.textContent = "循环";
+            } else {
+                audio.loop = true;
+                loopButton.textContent = "取消循环";
+            }
+        }
+
+        function toggleAutoplay() {
+            if (audio.autoplay) {
+                audio.autoplay = false;
+                autoplayButton.textContent = "自动播放";
+            } else {
+                audio.autoplay = true;
+                autoplayButton.textContent = "取消自动播放";
+            }
+        }
+
+        audio.addEventListener("timeupdate", function() {
+            var progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.value = progress;
+        });
+
+        function changeAudioPosition(value) {
+            var newTime = (value / 100) * audio.duration;
+            audio.currentTime = newTime;
+            console.log(newTime);
+        }
+    </script>
+</body>
+</html>
