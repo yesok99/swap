@@ -243,7 +243,8 @@
     padding: 5px 10px;
     font-size: 14px;
     border: #d3dbb7 1px solid;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
+    box-shadow: none; 
 }
 
 .alarm input:focus,.tradeSet input:focus{
