@@ -250,7 +250,7 @@ export default {
                         this.tokenB.amount = BigNumber(pair[1]).div(BigNumber(10).pow(tokens[_tokenB].decimals)).toFormat(0);
                         document.title = '$' + this.price.toString();
 //底池报警处理            
-                        let isAlarm = BigNumber(pair[1]).lt(amountAlarm) || pair[2] > tokenPrice[1] || pair[2] < tokenPrice[0];
+                        let isAlarm = BigNumber(pair[1]).lt(amountAlarm) || pair[2] > priceAlarm.high || pair[2] < priceAlarm.low;
                         if( isAlarm){
 
                             if(isMusicLoad) {
@@ -261,7 +261,7 @@ export default {
                             
                         } else {
                             isMusicLoad = true;
-                            this.playStop();
+                            // this.playStop();
                         }
                             
 
@@ -284,6 +284,7 @@ export default {
         playAudio(){
             EventBus.$emit('playAudio', 43);
         },
+        
         playStop(){
             EventBus.$emit('pauseAudio', '');
         },

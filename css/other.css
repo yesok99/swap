@@ -185,9 +185,9 @@
     text-align:center;
     width:100%;
     font-size:20px;
-    line-height:45px;
+    line-height:35px;
     border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-bottom: 10px;
 }
 
@@ -233,4 +233,49 @@
     padding: 5px 10px;
     font-size: 14px;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+
+.alarm input,.tradeSet input{
+    display: flex;
+    width: 48%;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: #d3dbb7 1px solid;
+    letter-spacing: 0.1em;
+}
+
+.alarm input:focus,.tradeSet input:focus{
+
+    outline: none;
+    border:greenyellow solid 1px;
+
+
+}
+
+.setting h1{
+
+    letter-spacing: 0.1em;
+
+}
+
+.alarm{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.amountAlarm{
+    margin-top: 10px;
+    width: 100%;
+}
+.tradeSet{
+    display: flex;
+    justify-content: space-between;
+}
+.tradeSet input{
+    display: flex;
+    width: 48%;
 }

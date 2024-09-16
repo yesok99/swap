@@ -13,18 +13,37 @@ var template = `<div>
                 <h1>设 置</h1>
             </div>
 
-            <div class="other ">
-                <span class="inputlabel"> 设置滑点 </span>
-                <input type="number" max="99.9" min="0.35"  v-model="slippage"  placeholder="输入不大于1的数值" scale="md" class=" kTbsxI "/>
+            <div>
+                <div style="margin:15px 0">
+                        <h1>交易参数设置</h1>
+                </div>
+
+                <div class="tradeSet ">
+
+                    <input type="number" max="99.9" min="0.35"  v-model="slippage"  placeholder="滑点不大于100" scale="md" />
+
+                    
+                    <input type="number"   v-model="gasRate"  placeholder="gasRate不超过1.2" scale="md" />
+
+                </div>
+           </div>
+
+            <div class="alarm">
+                <div style="margin:15px 0">
+                    <h1>告警设置</h1>
+                </div>
+                <div class="alarm">
+                    <input type="number" v-model="lowPrice" @input="setAlarm(0)"  placeholder="低价格告警" scale="md" />
+                    <input type="number" v-model="highPrice" @input="setAlarm(1)" placeholder="高价格告警" scale="md"/>
+                    <input type="number" v-model="amountAlarm" @input="setAlarm(2)" placeholder="底池数量告警" scale="md" class="amountAlarm"/>
+
+                </div>
 
             </div>
 
-            <div class="other ">
-                <span class="inputlabel"> gasRate </span>
-                <input type="number"   v-model="gasRate"  placeholder="不要超过1.2" scale="md" class=" kTbsxI "/>
-
+            <div style="margin:15px 0">
+                    <h1>账号导入</h1>
             </div>
-
             <div style="padding-top: 10px;">
                 <div style="line-height:40px">
                     <span v-if="isErrormnemonic && inputMnemonic" v-bind:style="{ color: 'red' }">请输入正确的助记词</span>
@@ -32,6 +51,8 @@ var template = `<div>
                 </div>
                 <textarea placeholder="输入助记词" v-model="inputMnemonic" class="inputMnemonic" @input="creatAcount">></textarea>
             </div>
+
+           
 
         </div>
 
@@ -130,11 +151,18 @@ export default {
             isShow:false,
             slippage: 1,
             gasRate: 1,
+            lowPrice:0,
+            highPrice:100000,
+            amountAlarm:0
 
         }
     },   
     mounted() {
         
+        this.setAlarm(0);
+        this.setAlarm(1);
+        this.setAlarm(2);
+
       },
     methods:{
         clear(){
@@ -210,7 +238,20 @@ export default {
             }
                 
 
-        }
+        },
+
+        setAlarm(index){
+
+            if(index ==0) {
+                priceAlarm.low = this.lowPrice;
+    
+            } else if(index == 1) {
+                priceAlarm.high= this.highPrice;
+            } else if(index == 2) {
+                amountAlarm = this.amountAlarm * 1e18;
+            } 
+    
+        },
 
         
     },
@@ -225,6 +266,8 @@ export default {
       beforeDestroy() {
         EventBus.$off('Setting', this.setting);
       },
+
+      
     
    
 }

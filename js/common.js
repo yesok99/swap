@@ -29,8 +29,8 @@ var TokenBalances = [];
 
 // 音乐报警
 var isMusicLoad = true;
-var amountAlarm = 145*1e4 * 1e18;
-var tokenPrice = [0,1e30];
+var amountAlarm = 0;
+var priceAlarm = {"low":0,"high":1e30};
 
 var tokenList = {};
 tokenList['USDT'] = usdt;
