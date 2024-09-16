@@ -245,6 +245,7 @@
     border: #d3dbb7 1px solid;
     letter-spacing: 0.05em;
     box-shadow: none; 
+    border-radius: 2px;
 }
 
 .alarm input:focus,.tradeSet input:focus{
