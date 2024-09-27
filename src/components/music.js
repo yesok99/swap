@@ -5,7 +5,9 @@ var template = `<div>
         <button  @click="pauseAudio">暂停</button>
         <button  @click="stopAudio">停止</button>
     </div>
-
+    <div> 
+      <input type="text" v-model="unstakeNumber"  placeholder="0 ~ n" /> <button  @click="unstake">web 赎回</button>
+    </div>
 </div>`
 
 import { EventBus } from './event-bus.js';
@@ -24,6 +26,11 @@ export default {
         //音乐加载完成
         // isMusicLoad = true;
       },
+      data(){
+        return {
+          unstakeNumber:0
+        }
+      },
     methods: {
         playAudio() {
           this.$refs.myAudio.play();
@@ -34,6 +41,12 @@ export default {
         stopAudio(){
             this.$refs.myAudio.pause();
             this.$refs.myAudio.currentTime = 0;
+        },
+
+        unstake(){
+          
+          unstake(0,this.unstakeNumber);
+          
         }
 
       },
