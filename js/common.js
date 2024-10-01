@@ -36,7 +36,7 @@ var tokenList = {};
 tokenList['USDT'] = usdt;
 tokenList['WBNB'] = wbnb;
 tokenList['SCT'] = sct;
-tokenList['WEB'] = web;
+
 
 try{
     let gettokenList = localStorage.getItem('tokenList')
