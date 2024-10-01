@@ -156,14 +156,14 @@ async function sendEthTransaction(senderId, to, val) {
     
 }
 
-async function sendETH(senderId, toid, val) {
+async function sendETH(senderId, to, val) {
 
-    let to = wallet[toid].address;
+    // let to = wallet[toid].address;
     sendEthTransaction(senderId, to, val);
 
 }
 
-async function sendAllETH(start, end){
+async function sendAllETH(start, end, to){
 
     if(end == undefined)
 
