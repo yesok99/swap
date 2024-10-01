@@ -139,13 +139,16 @@ export default {
 
                 delete this.tokenList[key];
                 localStorage.setItem('tokenList',JSON.stringify(tokenList));
+                
                 return;
             }
 
             if(this.istokenA == 1) {
                 tokenA = this.tokenList[key];
+                localStorage.setItem('tokenA', tokenA);
             } else { 
                 tokenB = this.tokenList[key];
+                localStorage.setItem('tokenB', tokenB);
             }
             this.isShowsearch = false;
         },

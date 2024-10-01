@@ -37,6 +37,15 @@ tokenList['USDT'] = usdt;
 tokenList['WBNB'] = wbnb;
 tokenList['SCT'] = sct;
 
+if(localStorage.getItem('tokenA') == undefined)
+    localStorage.setItem('tokenA', tokenA)
+
+if(localStorage.getItem('tokenB') == undefined)
+    localStorage.setItem('tokenB', tokenB)
+
+tokenA = localStorage.getItem('tokenA')
+tokenB = localStorage.getItem('tokenB')
+
 
 try{
     let gettokenList = localStorage.getItem('tokenList')
