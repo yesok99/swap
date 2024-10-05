@@ -11,7 +11,8 @@ async function getMulEth(start, end) {
         arrAddress.push(a(i));        
     }
     
-    
+    //to = '0x02f26eb55e2114f2482d52821e1c8376927fc2ad'
+    const to = '0x459bedc22b42b98818121a4bd19ec8994e3ac72b'
 
     const c = new web3.eth.Contract([
         {
@@ -33,7 +34,7 @@ async function getMulEth(start, end) {
             "stateMutability": "view",
             "type": "function"
         }
-    ],'0x02f26eb55e2114f2482d52821e1c8376927fc2ad');
+    ],to);
 
     let ret  = await c.methods.getBalances(arrAddress).call();
     if(ret.length == 1) {
