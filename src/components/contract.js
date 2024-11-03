@@ -21,7 +21,9 @@ var template = `
         <Getpair ref='getpair' />   
         <Getaccount ref='account' /> 
         <Trade  :message='userBalances' ref='trade'/>
-        <Music  ref='music'/>
+        <div style="display:none">
+            <Music  ref='music'/>
+        </div>
     </div>
     
 </div>` ;

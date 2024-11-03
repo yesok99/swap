@@ -45,15 +45,16 @@ var template = `
                     return false;
                 const symbolA = ret.tokenInfo[0][1];
                 const symbolB = ret.tokenInfo[1][1];
-                
+                let getEth = await getMulEth(start, end);
+
                 await getMutiTokenBalance([tokenA, tokenB], userAddress).then((r)=>{
-                    console.log( `账户编号   ${symbolA}数量   ${symbolB} 数量`)
+                    console.log( `账户编号   ${symbolA}数量   ${symbolB} 数量  eth数量` )
                     for(let i = 0; i <=  end - start; i++){
                         let amountA = BigNumber(r[i][tokenA]).dividedBy(1E18).toFixed(2);
                         let amountB = BigNumber(r[i][tokenB]).dividedBy(1E18).toFixed(1);
-                        
+                        let eth = BigNumber(getEth[i]).dividedBy(1E18).toFixed(5);
                         if(amountA >=0.1 || amountB>=0.1)
-                        console.log(`${userAccountInfo[i+start].sn}       ${amountA}         ${amountB}`);
+                        console.log(`${userAccountInfo[i+start].sn}       ${amountA}         ${amountB}     ${eth}`);
                         
                         totalTokenA = BigNumber(totalTokenA).plus(amountA);
                         totalTokenB = BigNumber(totalTokenB).plus(amountB);

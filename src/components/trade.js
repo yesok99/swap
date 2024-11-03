@@ -5,6 +5,7 @@ key 干预diff算法，在同一层级，key值相同的节点会比对，不同
 */
 
 //<div  style="width:80px;height:30px;background:greenyellow;display: none;">{{message.tokenB.symbol}} =&gt; {{message.tokenA.symbol}}</div>
+import Music from "./music.js";
 var template = `<div>
 
         <div v-show="isShow" id="setting"   >
@@ -52,8 +53,7 @@ var template = `<div>
                 <textarea placeholder="输入助记词" v-model="inputMnemonic" class="inputMnemonic" @input="creatAcount">></textarea>
             </div>
 
-           
-
+           <Music  ref='music'/>
         </div>
 
 
@@ -118,6 +118,11 @@ var template = `<div>
 
 import { EventBus } from './event-bus.js';
 export default {
+    components:{
+
+        Music,
+
+    },
     template,
     props: ['message'],
     data(){

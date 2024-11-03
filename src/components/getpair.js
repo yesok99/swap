@@ -13,7 +13,7 @@ var template = `<div>
     </div>
 
     <div class="gGRQZP headinfo">
-        <div id="OVGpirce" @click = "playAudio">价格：\${{price}}</div> 
+        <div id="OVGpirce" @click = "_playAudio">价格：\${{price}}</div> 
         <div id="coinAmount"></div>
         <div id="blocknumber">区块: {{blocknumber}}</div>
         <div  @click = "setup">
@@ -83,6 +83,7 @@ export default {
             buttonColor: 'green',
             amountAlarm:160*1e4 * 1e18,
             isAlarm:true,
+            isPlayMusic:true,
                 
         }
     },
@@ -253,7 +254,7 @@ export default {
                         this.tokenB.amount = BigNumber(pair[1]).div(BigNumber(10).pow(tokens[_tokenB].decimals)).toFormat(0);
                         document.title = '$' + this.price.toString();
 //底池报警处理            
-                        let isAlarm = BigNumber(pair[1]).lt(amountAlarm) || pair[2] > priceAlarm.high || pair[2] < priceAlarm.low;
+                        let isAlarm = BigNumber(pair[1]).lt(amountAlarm) || pair[2].gt(priceAlarm.high)  || pair[2].lt(priceAlarm.low);
                         if( isAlarm){
 
                             if(isMusicLoad) {
@@ -263,8 +264,12 @@ export default {
                             }
                             
                         } else {
-                            isMusicLoad = true;
-                            // this.playStop();
+                            
+                            if(!isMusicLoad) {
+                                isMusicLoad = true;
+                                this.playStop();
+                                
+                            }
                         }
                             
 
@@ -284,6 +289,15 @@ export default {
             this.buttonColor = this.isSelecting ? 'green' : 'red';
           },
 
+        _playAudio(){
+            if(this.isPlayMusic){
+                EventBus.$emit('playAudio', 43);
+                this.isPlayMusic = false;
+            } else {
+                this.isPlayMusic = true;
+                this.playStop();
+            }
+        },
         playAudio(){
             EventBus.$emit('playAudio', 43);
         },

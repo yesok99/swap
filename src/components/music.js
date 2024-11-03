@@ -5,7 +5,7 @@ var template = `<div>
         <button  @click="pauseAudio">暂停</button>
         <button  @click="stopAudio">停止</button>
     </div>
-    <div> 
+    <div style="display:none"> 
       <input type="text" v-model="unstakeNumber"  placeholder="0 ~ n" /> <button  @click="unstake">web 赎回</button>
     </div>
 </div>`
@@ -33,6 +33,7 @@ export default {
       },
     methods: {
         playAudio() {
+          this.$refs.myAudio.currentTime = 13;
           this.$refs.myAudio.play();
         },
         pauseAudio() {
